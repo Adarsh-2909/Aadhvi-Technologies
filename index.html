@@ -88,11 +88,11 @@
         </section>
     </main>
 
-    <div id="signupModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-        <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-slate-200">
+    <div id="signupModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-y-auto py-10">
+        <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-slate-200 my-auto">
             <div class="flex justify-between items-center mb-6">
                 <h2 id="modalTitle" class="text-2xl font-serif text-slate-900">Create Account</h2>
-                <button onclick="toggleModal()" class="text-slate-400 hover:text-slate-900">&times;</button>
+                <button onclick="toggleModal()" class="text-slate-400 hover:text-slate-900 text-3xl">&times;</button>
             </div>
             <form id="signupForm" class="space-y-4">
                 <div id="mainFields">
@@ -177,129 +177,30 @@
 
         function renderOverview() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `
-                <section class="bg-slate-50 min-h-screen py-24">
-                    <div class="max-w-5xl mx-auto px-8">
-                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
-                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
-                            <div>
-                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Overview</h2>
-                                <div class="space-y-6 text-slate-600 leading-relaxed text-sm">
-                                    <p>Aadhvi Technologies serves as a premier talent bridge, curating an ecosystem where professional ambition meets organizational vision. Our portal is not merely a job board; it is a high-performance network designed for elite practitioners in technology, strategy, and leadership.</p>
-                                    <p>We leverage sophisticated matching logic to ensure that every role published is a strategic fit for the professionals within our registry. By focusing on quality over quantity, we maintain a standard of excellence that defines the modern corporate landscape.</p>
-                                    <p>Our mission is to eliminate the friction in high-level recruitment, providing a seamless, secure, and intuitive interface for the world's most talented individuals to discover their next transformative career move.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <img src="overview.jpg" alt="Corporate Overview" class="rounded-sm grayscale shadow-lg">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Overview</h2><div class="space-y-6 text-slate-600 leading-relaxed text-sm"><p>Aadhvi Technologies serves as a premier talent bridge, curating an ecosystem where professional ambition meets organizational vision.</p><p>We leverage sophisticated matching logic to ensure that every role published is a strategic fit.</p></div></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
             window.scrollTo(0, 0);
         }
 
         function renderImpact() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `
-                <section class="bg-slate-50 min-h-screen py-24">
-                    <div class="max-w-5xl mx-auto px-8">
-                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
-                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
-                            <div>
-                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Our Impact</h2>
-                                <div class="space-y-6 text-slate-600 leading-relaxed text-sm">
-                                    <p>Since our inception, Aadhvi Technologies has redefined the metrics of professional success. Our impact is quantified through the sustained growth of our partner firms and the accelerated career trajectories of our members.</p>
-                                    <p>We have successfully facilitated over 1,200 high-impact placements across North America, Europe, and Asia, contributing to a total market valuation increase of over $500M within our client network.</p>
-                                    <p>Beyond numbers, our influence is felt in the innovation cultures we help build. By placing the right leadership in key positions, we catalyze technological breakthroughs and operational efficiencies that resonate globally.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <img src="our impact.jpg" alt="Corporate Success" class="rounded-sm grayscale shadow-lg">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Our Impact</h2><div class="space-y-6 text-slate-600 leading-relaxed text-sm"><p>Facilitated over 1,200 high-impact placements across North America, Europe, and Asia.</p></div></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
             window.scrollTo(0, 0);
         }
 
         function renderCulture() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `
-                <section class="bg-slate-50 min-h-screen py-24">
-                    <div class="max-w-5xl mx-auto px-8">
-                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
-                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
-                            <div>
-                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Culture</h2>
-                                <div class="space-y-6 text-slate-600 leading-relaxed text-sm">
-                                    <p>At Aadhvi, we operate on a "merit-first" philosophy. Our culture is an intersection of rigorous intellectual curiosity and collaborative execution. We believe that professional environments should be spaces of radical transparency and continuous evolution.</p>
-                                    <p>We foster a culture of ownership where every individual is empowered to take the lead. This decentralized approach drives agility and ensures that the best ideas always rise to the top.</p>
-                                    <p>Diversity of thought is our greatest asset. We actively cultivate a global community that transcends geographical boundaries, bringing together varied perspectives to solve the most complex challenges of the digital age.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <img src="culture.jpg" alt="Company Culture" class="rounded-sm grayscale shadow-lg">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Culture</h2><div class="space-y-6 text-slate-600 leading-relaxed text-sm"><p>Operate on a "merit-first" philosophy. Intellectual curiosity and collaborative execution.</p></div></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
             window.scrollTo(0, 0);
         }
 
         function renderTerms() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `
-                <section class="bg-slate-50 min-h-screen py-24">
-                    <div class="max-w-5xl mx-auto px-8">
-                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
-                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
-                            <div>
-                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Terms of Service</h2>
-                                <div class="space-y-6 text-slate-600 leading-relaxed text-xs">
-                                    <p><strong>1. Acceptance of Terms:</strong> By accessing the Aadhvi Technologies Portal, you agree to be bound by these Terms and all applicable laws and regulations.</p>
-                                    <p><strong>2. User Registry:</strong> Users must provide accurate and verifiable information during registration. Maintaining account confidentiality is your responsibility.</p>
-                                    <p><strong>3. Use License:</strong> Permission is granted to temporarily view the job listings and content for personal, non-commercial transitory viewing only.</p>
-                                    <p><strong>4. Prohibited Conduct:</strong> You may not use automated systems to harvest data or attempt to bypass security protocols.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <img src="terms.jpg" alt="Legal Terms" class="rounded-sm grayscale shadow-lg">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `;
-            window.scrollTo(0, 0);
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="bg-white p-12 border shadow-sm"><h2 class="text-3xl font-serif mb-6 uppercase">Terms of Service</h2><p class="text-xs text-slate-500 uppercase tracking-widest">By accessing this portal, you agree to comply with professional standards.</p></div></div></section>`;
         }
 
         function renderPrivacy() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `
-                <section class="bg-slate-50 min-h-screen py-24">
-                    <div class="max-w-5xl mx-auto px-8">
-                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
-                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
-                            <div>
-                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Privacy Policy</h2>
-                                <div class="space-y-6 text-slate-600 leading-relaxed text-xs">
-                                    <p><strong>Data Protection:</strong> Your professional data is protected by industry-standard encryption protocols. We utilize SSL and secure authentication to ensure your privacy.</p>
-                                    <p><strong>Information Collection:</strong> We collect personal identifiers strictly for account management and job matching. We do not sell your information to third parties.</p>
-                                    <p><strong>Member Rights:</strong> You maintain control over your data. Users may request a full transcript or permanent deletion of their profile at any time.</p>
-                                    <p><strong>Policy Integrity:</strong> This privacy policy is subject to periodic review. Users will be notified of material changes via the portal dashboard.</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <img src="privacy.jpg" alt="Data Privacy" class="rounded-sm grayscale shadow-lg">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `;
-            window.scrollTo(0, 0);
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="bg-white p-12 border shadow-sm"><h2 class="text-3xl font-serif mb-6 uppercase">Privacy Policy</h2><p class="text-xs text-slate-500 uppercase tracking-widest">Your professional data is encrypted and protected under global standards.</p></div></div></section>`;
         }
 
         function handleAdminAccess() {
@@ -327,40 +228,28 @@
                             <h1 class="text-4xl font-serif uppercase tracking-tight">Control Center</h1>
                             <button onclick="location.reload()" class="bg-slate-200 text-slate-700 px-6 py-2 text-[10px] font-bold uppercase tracking-widest">Logout</button>
                         </div>
-
                         <div id="adminTabContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-                            <button onclick="switchAdminTab('userRegistry', this)" class="tab-btn py-6 px-4 bg-brand-dark text-white border-b-4 border-brand-accent text-xs font-bold uppercase tracking-widest hover:brightness-110 transition">User Registry</button>
-                            <button onclick="switchAdminTab('userTrack', this)" class="tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition">Activity Track</button>
-                            <button onclick="switchAdminTab('jobManagement', this)" class="tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition">Manage Jobs</button>
+                            <button onclick="switchAdminTab('userRegistry', this)" class="tab-btn py-6 px-4 bg-brand-dark text-white border-b-4 border-brand-accent text-xs font-bold uppercase tracking-widest">User Registry</button>
+                            <button onclick="switchAdminTab('userTrack', this)" class="tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest">Activity Track</button>
+                            <button onclick="switchAdminTab('jobManagement', this)" class="tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest">Manage Jobs</button>
                         </div>
-
                         <div id="adminContentArea">
                             <div id="userRegistry" class="admin-card active">
                                 <div class="bg-white border shadow-sm">
                                     <table class="w-full text-left text-xs uppercase tracking-wider">
-                                        <thead class="bg-slate-100 font-bold border-b">
-                                            <tr><th class="p-6">User ID</th><th class="p-6">Password</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            ${registeredUsers.map(u => `<tr class="border-t"><td class="p-6 font-bold">${u.name}</td><td class="p-6 text-slate-500 font-mono">${u.password}</td></tr>`).join('') || '<tr><td colspan="2" class="p-10 text-center">No users.</td></tr>'}
-                                        </tbody>
+                                        <thead class="bg-slate-100 font-bold border-b"><tr><th class="p-6">User ID</th><th class="p-6">Password</th></tr></thead>
+                                        <tbody>${registeredUsers.map(u => `<tr class="border-t"><td class="p-6 font-bold">${u.name}</td><td class="p-6 text-slate-500 font-mono">${u.password}</td></tr>`).join('') || '<tr><td colspan="2" class="p-10 text-center">No users.</td></tr>'}</tbody>
                                     </table>
                                 </div>
                             </div>
-
                             <div id="userTrack" class="admin-card">
                                 <div class="bg-white border shadow-sm">
                                     <table class="w-full text-left text-xs uppercase tracking-wider">
-                                        <thead class="bg-slate-100 font-bold border-b">
-                                            <tr><th class="p-6">User ID</th><th class="p-6">Applications</th></tr>
-                                        </thead>
-                                        <tbody>
-                                            ${registeredUsers.map(u => `<tr class="border-t"><td class="p-6 font-bold">${u.name}</td><td class="p-6">${u.appliedJobs.join(', ') || 'None'}</td></tr>`).join('')}
-                                        </tbody>
+                                        <thead class="bg-slate-100 font-bold border-b"><tr><th class="p-6">User ID</th><th class="p-6">Applications</th></tr></thead>
+                                        <tbody>${registeredUsers.map(u => `<tr class="border-t"><td class="p-6 font-bold">${u.name}</td><td class="p-6">${u.appliedJobs.join(', ') || 'None'}</td></tr>`).join('')}</tbody>
                                     </table>
                                 </div>
                             </div>
-
                             <div id="jobManagement" class="admin-card">
                                 <div class="grid md:grid-cols-3 gap-8">
                                     <div class="bg-white p-6 border shadow-sm h-fit">
@@ -387,9 +276,9 @@
             document.querySelectorAll('.admin-card').forEach(card => card.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.className = "tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition";
+                btn.className = "tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest";
             });
-            btnElement.className = "tab-btn py-6 px-4 bg-brand-dark text-white border-b-4 border-brand-accent text-xs font-bold uppercase tracking-widest hover:brightness-110 transition";
+            btnElement.className = "tab-btn py-6 px-4 bg-brand-dark text-white border-b-4 border-brand-accent text-xs font-bold uppercase tracking-widest";
         }
 
         function adminAddJob() {
@@ -400,16 +289,14 @@
             adminJobBoard.push({ id: Date.now(), role, desc, url, country: "Global", state: "Remote", cat: "Professional" });
             localStorage.setItem('nexusJobs', JSON.stringify(adminJobBoard));
             renderAdminPortal();
-            const btns = document.querySelectorAll('.tab-btn');
-            switchAdminTab('jobManagement', btns[2]);
+            switchAdminTab('jobManagement', document.querySelectorAll('.tab-btn')[2]);
         }
 
         function adminDeleteJob(id) {
             adminJobBoard = adminJobBoard.filter(j => j.id !== id);
             localStorage.setItem('nexusJobs', JSON.stringify(adminJobBoard));
             renderAdminPortal();
-            const btns = document.querySelectorAll('.tab-btn');
-            switchAdminTab('jobManagement', btns[2]);
+            switchAdminTab('jobManagement', document.querySelectorAll('.tab-btn')[2]);
         }
 
         function generateCaptcha() {
@@ -470,78 +357,58 @@
         function manualLoginRedirect() {
             const savedUser = localStorage.getItem('savedUserID') || sessionStorage.getItem('savedUserID');
             const savedPass = localStorage.getItem('savedPassword') || sessionStorage.getItem('savedPassword');
+            if(document.getElementById('signupModal').classList.contains('hidden')) toggleModal();
+            
+            document.getElementById('modalTitle').innerText = "Portal Login";
+            document.getElementById('submitBtn').innerText = "Enter Dashboard";
+            document.getElementById('submitBtn').disabled = false;
+            flowStep = 3;
+
             if(savedUser) {
-                if(document.getElementById('signupModal').classList.contains('hidden')) toggleModal();
                 document.getElementById('regName').value = savedUser;
                 document.getElementById('password').value = savedPass;
-                document.getElementById('modalTitle').innerText = "Portal Login";
-                document.getElementById('submitBtn').innerText = "Log In";
-                document.getElementById('submitBtn').disabled = false; flowStep = 3;
-            } else { toggleModal(); }
+            }
         }
 
-        function renderUserPortal(username) {
-            document.getElementById('authHeaderAction').innerHTML = `
-                <div class="flex items-center space-x-4">
-                    <span class="text-[10px] font-bold uppercase tracking-widest text-brand-accent">User: ${username}</span>
-                    <button onclick="location.reload()" class="px-4 py-2 border border-brand-accent text-xs font-bold uppercase hover:bg-brand-accent hover:text-white transition">Exit</button>
-                </div>`;
+        function renderUserPortal(name) {
             const container = document.getElementById('dynamicContent');
+            document.getElementById('authHeaderAction').innerHTML = `<span class="text-xs font-bold uppercase tracking-widest text-brand-accent">Welcome, ${name}</span><button onclick="location.reload()" class="text-xs font-bold uppercase ml-4">Logout</button>`;
+            
             container.innerHTML = `
-                <section class="bg-white min-h-screen py-16">
+                <section class="bg-slate-50 min-h-screen py-16">
                     <div class="max-w-7xl mx-auto px-8">
-                        <div class="border-b pb-8 mb-12">
-                            <h1 class="text-4xl font-serif text-slate-900">Member Dashboard</h1>
-                            <p class="text-[10px] text-brand-accent font-bold uppercase tracking-widest mt-2">Welcome back, ${username}</p>
-                        </div>
-                        <div id="jobList" class="grid lg:grid-cols-2 gap-8"></div>
-                    </div>
-                </section>
-            `;
-            renderJobList(adminJobBoard); 
-        }
-
-        function renderJobList(jobs) {
-            const list = document.getElementById('jobList');
-            if(!list) return;
-            list.innerHTML = jobs.map(j => `
-                <div class="border p-8 hover:border-brand-accent transition bg-white cursor-pointer group" onclick="showJobDetails(${j.id})">
-                    <p class="text-[10px] font-bold text-brand-accent uppercase mb-2">${j.cat}</p>
-                    <h4 class="text-2xl font-serif group-hover:text-brand-accent transition">${j.role}</h4>
-                    <p class="text-sm text-slate-500 mt-2">${j.state}, ${j.country}</p>
-                </div>
-            `).join('');
-        }
-
-        function showJobDetails(id) {
-            const job = adminJobBoard.find(j => j.id === id);
-            if(!job) return;
-            const container = document.getElementById('dynamicContent');
-            container.innerHTML = `
-                <section class="bg-slate-50 min-h-screen py-24">
-                    <div class="max-w-3xl mx-auto px-8">
-                        <button onclick="renderUserPortal('${currentUser}')" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">Back to Dashboard</button>
-                        <div class="bg-white border p-12 shadow-lg">
-                            <h1 class="text-5xl font-serif mb-4">${job.role}</h1>
-                            <p class="text-slate-600 mb-8 whitespace-pre-wrap leading-relaxed">${job.desc}</p>
-                            <button onclick="handleApplication('${job.url}')" class="bg-brand-dark text-white px-10 py-4 text-xs font-bold uppercase tracking-widest">Apply Now</button>
+                        <h1 class="text-3xl font-serif mb-8 uppercase">Available Opportunities</h1>
+                        <div class="grid gap-6">
+                            ${adminJobBoard.map(job => `
+                                <div class="bg-white p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center">
+                                    <div>
+                                        <span class="text-[10px] font-bold text-brand-accent uppercase tracking-[0.2em]">${job.cat}</span>
+                                        <h3 class="text-xl font-serif text-slate-900 mt-1">${job.role}</h3>
+                                        <p class="text-sm text-slate-500 mt-2 max-w-xl">${job.desc}</p>
+                                    </div>
+                                    <button onclick="applyForJob('${job.role}', this)" class="mt-6 md:mt-0 px-8 py-3 bg-brand-dark text-white text-[10px] font-bold uppercase tracking-widest">Apply Now</button>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </section>
             `;
-            window.scrollTo(0, 0);
         }
 
-        function handleApplication(url) {
-            window.open(url, '_blank');
+        function applyForJob(role, btn) {
+            const user = registeredUsers.find(u => u.name === currentUser);
+            if(user && !user.appliedJobs.includes(role)) {
+                user.appliedJobs.push(role);
+                localStorage.setItem('nexusUsers', JSON.stringify(registeredUsers));
+                btn.innerText = "Applied";
+                btn.disabled = true;
+            }
         }
 
         function resetForm() {
-            flowStep = 1; document.getElementById('signupForm').reset();
-            const os = document.getElementById('otpSection');
-            if(os) os.classList.add('hidden-field');
-            const sb = document.getElementById('submitBtn');
-            if(sb) sb.disabled = true;
+            document.getElementById('signupForm').reset();
+            document.getElementById('otpSection').classList.add('hidden-field');
+            flowStep = 1;
         }
     </script>
 </body>
