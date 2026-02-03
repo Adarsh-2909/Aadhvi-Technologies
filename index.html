@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadhvi Technologies | Professional Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-dark: #0f172a;
+            --brand-accent: #b4945c; 
+        }
+        .bg-brand-dark { background-color: var(--brand-dark); }
+        .text-brand-accent { color: var(--brand-accent); }
+        .border-brand-accent { border-color: var(--brand-accent); }
+        
+        #signupModal.hidden, #adminModal.hidden { display: none; }
+        #signupModal.flex, #adminModal.flex { display: flex; }
+
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background-color: #64748b !important;
+        }
+        .hidden-field { display: none; }
+        
+        .custom-checkbox:checked {
+            background-color: var(--brand-accent);
+            border-color: var(--brand-accent);
+        }
+
+        .captcha-box {
+            letter-spacing: 0.5em;
+            font-family: serif;
+            user-select: none;
+            background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        }
+
+        /* Admin UI Utilities */
+        .admin-card { display: none; }
+        .admin-card.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800 font-light">
+
+    <header class="bg-brand-dark text-white sticky top-0 z-50 shadow-lg">
+        <nav class="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-brand-accent rounded-sm"></div>
+                <span class="text-xl font-semibold tracking-widest uppercase">Aadhvi<span class="text-brand-accent"> Technologies</span></span>
+            </div>
+            
+            <div id="navLinks" class="hidden md:flex space-x-10 text-sm font-medium tracking-wide uppercase">
+                <a href="javascript:void(0)" onclick="renderOverview()" class="hover:text-brand-accent transition">Overview</a>
+                <a href="javascript:void(0)" onclick="renderImpact()" class="hover:text-brand-accent transition">Our Impact</a>
+                <a href="javascript:void(0)" onclick="renderCulture()" class="hover:text-brand-accent transition">Culture</a>
+            </div>
+
+            <div id="authHeaderAction" class="flex items-center space-x-6">
+                <a href="javascript:void(0)" onclick="manualLoginRedirect()" class="text-sm font-medium hover:text-brand-accent transition">Log In</a>
+                <button onclick="toggleModal()" class="bg-brand-accent text-white px-5 py-2 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition">Join Network</button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="dynamicContent">
+        <section class="relative bg-white py-24 border-b">
+            <div class="max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl font-serif text-slate-900 leading-tight mb-6">
+                        Unlock Your <br><span class="italic text-brand-accent">Next Frontier.</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                        Your talent deserves a global stage. Connect with top-tier opportunities, bridge the gap to your dream role, and accelerate your career with our exclusive network of industry leaders.
+                    </p>
+                    <div class="flex space-x-4">
+                        <button onclick="toggleModal()" class="px-8 py-4 bg-brand-dark text-white text-sm font-bold uppercase tracking-widest hover:opacity-90 transition">
+                            Explore Opportunities
+                        </button>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="h-96 w-full bg-slate-200 rounded-sm overflow-hidden grayscale contrast-125 shadow-2xl">
+                        <img src="main.jpg" alt="Corporate Building" class="object-cover w-full h-full opacity-80">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="signupModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+        <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-slate-200">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modalTitle" class="text-2xl font-serif text-slate-900">Create Account</h2>
+                <button onclick="toggleModal()" class="text-slate-400 hover:text-slate-900">&times;</button>
+            </div>
+            <form id="signupForm" class="space-y-4">
+                <div id="mainFields">
+                    <div class="mb-4">
+                        <label class="block text-xs font-bold uppercase tracking-widest mb-1">Full Name / UserID</label>
+                        <input type="text" id="regName" required class="w-full border border-slate-300 p-3 text-sm focus:outline-none focus:border-brand-accent">
+                    </div>
+                    <div class="relative mb-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest mb-1">Password</label>
+                        <input id="password" type="password" required oninput="validatePassword()"
+                               class="w-full border border-slate-300 p-3 text-sm focus:outline-none focus:border-brand-accent">
+                    </div>
+                    <div id="passwordRules" class="text-[10px] uppercase tracking-tighter space-y-1 mb-4">
+                        <p id="rule-upper" class="text-red-500">• Uppercase Letter Missing</p>
+                        <p id="rule-num" class="text-red-500">• Number Missing</p>
+                        <p id="rule-special" class="text-red-500">• Special Character Missing</p>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <input type="checkbox" id="rememberMe" class="custom-checkbox w-4 h-4 border-slate-300 rounded focus:ring-brand-accent cursor-pointer">
+                        <label for="rememberMe" class="ml-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 cursor-pointer select-none">Remember this device</label>
+                    </div>
+                </div>
+
+                <div id="otpSection" class="hidden-field border-t border-slate-100 pt-6 mt-4">
+                    <div class="flex flex-col items-center justify-center space-y-4">
+                        <div id="captchaDisplay" class="captcha-box bg-slate-900 text-brand-accent px-6 py-2 text-xl font-bold italic tracking-[0.5em] rounded-sm shadow-inner"></div>
+                        <div class="w-full">
+                            <label class="block text-center text-[9px] font-bold uppercase tracking-[0.2em] mb-2 text-slate-400">Enter Security Code Above</label>
+                            <input type="text" id="captchaInput" oninput="validateCaptcha()" maxlength="4" placeholder="****" 
+                                   class="w-full border-b border-slate-300 p-2 text-center text-lg tracking-[0.5em] focus:outline-none focus:border-brand-accent uppercase">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="submitBtn" type="button" onclick="handleFlow()" disabled class="w-full py-4 bg-brand-dark text-white text-xs font-bold uppercase tracking-widest hover:bg-brand-accent transition mt-4">
+                    Continue to Registration
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="adminModal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+        <div class="bg-white w-full max-w-xs p-8 shadow-2xl">
+            <h2 class="text-xl font-serif mb-4">Admin Access</h2>
+            <input type="password" id="adminKey" placeholder="Enter System Key" class="w-full border p-3 text-xs mb-4 focus:outline-none">
+            <button onclick="verifyAdmin()" class="w-full py-3 bg-brand-dark text-white text-xs font-bold uppercase tracking-widest">Login to Admin</button>
+            <button onclick="toggleAdminModal()" class="w-full mt-2 text-[10px] uppercase text-slate-400">Close</button>
+        </div>
+    </div>
+
+    <footer class="bg-brand-dark text-slate-400 py-16">
+        <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-12">
+            <div class="mb-8 md:mb-0">
+                <div class="text-white text-lg font-bold tracking-widest uppercase mb-2">Aadhvi<span class="text-brand-accent"> Technologies</span></div>
+                <p class="text-xs uppercase tracking-widest">&copy; 2026 Global Holdings Inc.</p>
+                <button id="adminFooterBtn" onclick="handleAdminAccess()" class="mt-4 text-[9px] uppercase tracking-widest hover:text-white transition">Admin Portal</button>
+            </div>
+            <div class="flex flex-col items-end space-y-4">
+                <div class="flex space-x-12 text-xs font-bold uppercase tracking-widest">
+                    <a href="javascript:void(0)" onclick="renderTerms()" class="hover:text-white transition">Terms</a>
+                    <a href="javascript:void(0)" onclick="renderPrivacy()" class="hover:text-white transition">Privacy</a>
+                </div>
+                <div class="text-[10px] font-bold uppercase tracking-[0.2em]">
+                    Contact: <a href="mailto:hr.aadhvicreativetech09@gmail.com" class="text-brand-accent hover:text-white transition lowercase">hr.aadhvicreativetech09@gmail.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let defaultJobs = [
+            { id: 1, role: "Chief Strategic Officer", country: "Switzerland", state: "Geneva", cat: "Leadership", desc: "Lead global strategy.", url: "https://example.com/apply" },
+            { id: 2, role: "Principal Architect", country: "Remote", state: "Remote", cat: "Technology", desc: "Scale system infrastructure.", url: "https://example.com/apply" }
+        ];
+
+        let adminJobBoard = JSON.parse(localStorage.getItem('nexusJobs')) || defaultJobs;
+        let registeredUsers = JSON.parse(localStorage.getItem('nexusUsers')) || [];
+        let flowStep = 1;
+        let isUserLoggedIn = false;
+        let activeCaptcha = "";
+        let currentUser = "";
+
+        function renderOverview() {
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-slate-50 min-h-screen py-24">
+                    <div class="max-w-5xl mx-auto px-8">
+                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
+                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
+                            <div>
+                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Overview</h2>
+                                <div class="space-y-6 text-slate-600 leading-relaxed text-sm">
+                                    <p>Aadhvi Technologies serves as a premier talent bridge, curating an ecosystem where professional ambition meets organizational vision. Our portal is not merely a job board; it is a high-performance network designed for elite practitioners in technology, strategy, and leadership.</p>
+                                    <p>We leverage sophisticated matching logic to ensure that every role published is a strategic fit for the professionals within our registry. By focusing on quality over quantity, we maintain a standard of excellence that defines the modern corporate landscape.</p>
+                                    <p>Our mission is to eliminate the friction in high-level recruitment, providing a seamless, secure, and intuitive interface for the world's most talented individuals to discover their next transformative career move.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <img src="overview.jpg" alt="Corporate Overview" class="rounded-sm grayscale shadow-lg">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        function renderImpact() {
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-slate-50 min-h-screen py-24">
+                    <div class="max-w-5xl mx-auto px-8">
+                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
+                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
+                            <div>
+                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Our Impact</h2>
+                                <div class="space-y-6 text-slate-600 leading-relaxed text-sm">
+                                    <p>Since our inception, Aadhvi Technologies has redefined the metrics of professional success. Our impact is quantified through the sustained growth of our partner firms and the accelerated career trajectories of our members.</p>
+                                    <p>We have successfully facilitated over 1,200 high-impact placements across North America, Europe, and Asia, contributing to a total market valuation increase of over $500M within our client network.</p>
+                                    <p>Beyond numbers, our influence is felt in the innovation cultures we help build. By placing the right leadership in key positions, we catalyze technological breakthroughs and operational efficiencies that resonate globally.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <img src="our impact.jpg" alt="Corporate Success" class="rounded-sm grayscale shadow-lg">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        function renderCulture() {
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-slate-50 min-h-screen py-24">
+                    <div class="max-w-5xl mx-auto px-8">
+                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
+                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
+                            <div>
+                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Culture</h2>
+                                <div class="space-y-6 text-slate-600 leading-relaxed text-sm">
+                                    <p>At Aadhvi, we operate on a "merit-first" philosophy. Our culture is an intersection of rigorous intellectual curiosity and collaborative execution. We believe that professional environments should be spaces of radical transparency and continuous evolution.</p>
+                                    <p>We foster a culture of ownership where every individual is empowered to take the lead. This decentralized approach drives agility and ensures that the best ideas always rise to the top.</p>
+                                    <p>Diversity of thought is our greatest asset. We actively cultivate a global community that transcends geographical boundaries, bringing together varied perspectives to solve the most complex challenges of the digital age.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <img src="culture.jpg" alt="Company Culture" class="rounded-sm grayscale shadow-lg">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        function renderTerms() {
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-slate-50 min-h-screen py-24">
+                    <div class="max-w-5xl mx-auto px-8">
+                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
+                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
+                            <div>
+                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Terms of Service</h2>
+                                <div class="space-y-6 text-slate-600 leading-relaxed text-xs">
+                                    <p><strong>1. Acceptance of Terms:</strong> By accessing the Aadhvi Technologies Portal, you agree to be bound by these Terms and all applicable laws and regulations.</p>
+                                    <p><strong>2. User Registry:</strong> Users must provide accurate and verifiable information during registration. Maintaining account confidentiality is your responsibility.</p>
+                                    <p><strong>3. Use License:</strong> Permission is granted to temporarily view the job listings and content for personal, non-commercial transitory viewing only.</p>
+                                    <p><strong>4. Prohibited Conduct:</strong> You may not use automated systems to harvest data or attempt to bypass security protocols.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <img src="terms.jpg" alt="Legal Terms" class="rounded-sm grayscale shadow-lg">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        function renderPrivacy() {
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-slate-50 min-h-screen py-24">
+                    <div class="max-w-5xl mx-auto px-8">
+                        <button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button>
+                        <div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border">
+                            <div>
+                                <h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Privacy Policy</h2>
+                                <div class="space-y-6 text-slate-600 leading-relaxed text-xs">
+                                    <p><strong>Data Protection:</strong> Your professional data is protected by industry-standard encryption protocols. We utilize SSL and secure authentication to ensure your privacy.</p>
+                                    <p><strong>Information Collection:</strong> We collect personal identifiers strictly for account management and job matching. We do not sell your information to third parties.</p>
+                                    <p><strong>Member Rights:</strong> You maintain control over your data. Users may request a full transcript or permanent deletion of their profile at any time.</p>
+                                    <p><strong>Policy Integrity:</strong> This privacy policy is subject to periodic review. Users will be notified of material changes via the portal dashboard.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-center">
+                                <img src="privacy.jpg" alt="Data Privacy" class="rounded-sm grayscale shadow-lg">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        function handleAdminAccess() {
+            if(isUserLoggedIn) return; 
+            toggleAdminModal();
+        }
+
+        function toggleAdminModal() {
+            const m = document.getElementById('adminModal');
+            m.classList.toggle('hidden'); m.classList.toggle('flex');
+        }
+
+        function verifyAdmin() {
+            if(document.getElementById('adminKey').value === "admin123") {
+                renderAdminPortal(); toggleAdminModal();
+            } else { alert("Invalid Key"); }
+        }
+
+        function renderAdminPortal() {
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-slate-50 min-h-screen py-16">
+                    <div class="max-w-7xl mx-auto px-8">
+                        <div class="flex justify-between items-center border-b pb-8 mb-12">
+                            <h1 class="text-4xl font-serif uppercase tracking-tight">Control Center</h1>
+                            <button onclick="location.reload()" class="bg-slate-200 text-slate-700 px-6 py-2 text-[10px] font-bold uppercase tracking-widest">Logout</button>
+                        </div>
+
+                        <div id="adminTabContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+                            <button onclick="switchAdminTab('userRegistry', this)" class="tab-btn py-6 px-4 bg-brand-dark text-white border-b-4 border-brand-accent text-xs font-bold uppercase tracking-widest hover:brightness-110 transition">User Registry</button>
+                            <button onclick="switchAdminTab('userTrack', this)" class="tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition">Activity Track</button>
+                            <button onclick="switchAdminTab('jobManagement', this)" class="tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition">Manage Jobs</button>
+                        </div>
+
+                        <div id="adminContentArea">
+                            <div id="userRegistry" class="admin-card active">
+                                <div class="bg-white border shadow-sm">
+                                    <table class="w-full text-left text-xs uppercase tracking-wider">
+                                        <thead class="bg-slate-100 font-bold border-b">
+                                            <tr><th class="p-6">User ID</th><th class="p-6">Password</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            ${registeredUsers.map(u => `<tr class="border-t"><td class="p-6 font-bold">${u.name}</td><td class="p-6 text-slate-500 font-mono">${u.password}</td></tr>`).join('') || '<tr><td colspan="2" class="p-10 text-center">No users.</td></tr>'}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="userTrack" class="admin-card">
+                                <div class="bg-white border shadow-sm">
+                                    <table class="w-full text-left text-xs uppercase tracking-wider">
+                                        <thead class="bg-slate-100 font-bold border-b">
+                                            <tr><th class="p-6">User ID</th><th class="p-6">Applications</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            ${registeredUsers.map(u => `<tr class="border-t"><td class="p-6 font-bold">${u.name}</td><td class="p-6">${u.appliedJobs.join(', ') || 'None'}</td></tr>`).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="jobManagement" class="admin-card">
+                                <div class="grid md:grid-cols-3 gap-8">
+                                    <div class="bg-white p-6 border shadow-sm h-fit">
+                                        <h3 class="text-xs font-bold uppercase mb-4">Post Job</h3>
+                                        <input type="text" id="newRole" placeholder="Role" class="w-full border p-2 mb-2 text-xs">
+                                        <textarea id="newDesc" placeholder="Description" class="w-full border p-2 mb-2 text-xs"></textarea>
+                                        <input type="text" id="newUrl" placeholder="URL" class="w-full border p-2 mb-4 text-xs">
+                                        <button onclick="adminAddJob()" class="w-full bg-brand-accent text-white py-3 text-xs font-bold uppercase">Publish</button>
+                                    </div>
+                                    <div class="md:col-span-2 bg-white border shadow-sm">
+                                        <table class="w-full text-xs uppercase">
+                                            ${adminJobBoard.map(j => `<tr class="border-t"><td class="p-4">${j.role}</td><td class="p-4 text-right"><button onclick="adminDeleteJob(${j.id})" class="text-red-500 font-bold">Delete</button></td></tr>`).join('')}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function switchAdminTab(tabId, btnElement) {
+            document.querySelectorAll('.admin-card').forEach(card => card.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn py-6 px-4 bg-white border text-slate-900 text-xs font-bold uppercase tracking-widest hover:bg-slate-50 transition";
+            });
+            btnElement.className = "tab-btn py-6 px-4 bg-brand-dark text-white border-b-4 border-brand-accent text-xs font-bold uppercase tracking-widest hover:brightness-110 transition";
+        }
+
+        function adminAddJob() {
+            const role = document.getElementById('newRole').value;
+            const desc = document.getElementById('newDesc').value;
+            const url = document.getElementById('newUrl').value;
+            if(!role || !url) return;
+            adminJobBoard.push({ id: Date.now(), role, desc, url, country: "Global", state: "Remote", cat: "Professional" });
+            localStorage.setItem('nexusJobs', JSON.stringify(adminJobBoard));
+            renderAdminPortal();
+            const btns = document.querySelectorAll('.tab-btn');
+            switchAdminTab('jobManagement', btns[2]);
+        }
+
+        function adminDeleteJob(id) {
+            adminJobBoard = adminJobBoard.filter(j => j.id !== id);
+            localStorage.setItem('nexusJobs', JSON.stringify(adminJobBoard));
+            renderAdminPortal();
+            const btns = document.querySelectorAll('.tab-btn');
+            switchAdminTab('jobManagement', btns[2]);
+        }
+
+        function generateCaptcha() {
+            activeCaptcha = Math.random().toString(36).substring(2, 6).toUpperCase();
+            document.getElementById('captchaDisplay').innerText = activeCaptcha;
+        }
+
+        function validateCaptcha() {
+            if (flowStep !== 2) return;
+            const input = document.getElementById('captchaInput').value.toUpperCase();
+            document.getElementById('submitBtn').disabled = (input !== activeCaptcha);
+        }
+
+        function toggleModal() {
+            const modal = document.getElementById('signupModal');
+            modal.classList.toggle('hidden'); modal.classList.toggle('flex');
+            resetForm();
+        }
+
+        function validatePassword() {
+            if (flowStep !== 1) return;
+            const val = document.getElementById('password').value;
+            const hasUpper = /[A-Z]/.test(val); const hasNum = /\d/.test(val); const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+            document.getElementById('rule-upper').className = hasUpper ? 'text-green-600' : 'text-red-500';
+            document.getElementById('rule-num').className = hasNum ? 'text-green-600' : 'text-red-500';
+            document.getElementById('rule-special').className = hasSpecial ? 'text-green-600' : 'text-red-500';
+            document.getElementById('submitBtn').disabled = !(hasUpper && hasNum && hasSpecial);
+        }
+
+        function handleFlow() {
+            const name = document.getElementById('regName').value;
+            const pass = document.getElementById('password').value;
+            const remember = document.getElementById('rememberMe').checked;
+
+            if (flowStep === 1) {
+                if(registeredUsers.find(u => u.name === name)) { manualLoginRedirect(); return; }
+                document.getElementById('otpSection').classList.remove('hidden-field');
+                generateCaptcha();
+                document.getElementById('submitBtn').innerText = "Register Account";
+                document.getElementById('submitBtn').disabled = true;
+                flowStep = 2;
+            } else if (flowStep === 2) {
+                const newUser = { name, password: pass, appliedJobs: [] };
+                registeredUsers.push(newUser);
+                localStorage.setItem('nexusUsers', JSON.stringify(registeredUsers));
+                if (remember) { localStorage.setItem('savedUserID', name); localStorage.setItem('savedPassword', pass); }
+                else { sessionStorage.setItem('savedUserID', name); sessionStorage.setItem('savedPassword', pass); }
+                document.getElementById('modalTitle').innerText = "Portal Login";
+                document.getElementById('otpSection').classList.add('hidden-field');
+                document.getElementById('submitBtn').innerText = "Enter Dashboard"; 
+                flowStep = 3; 
+            } else if (flowStep === 3) {
+                isUserLoggedIn = true; currentUser = name;
+                renderUserPortal(name); toggleModal();
+            }
+        }
+
+        function manualLoginRedirect() {
+            const savedUser = localStorage.getItem('savedUserID') || sessionStorage.getItem('savedUserID');
+            const savedPass = localStorage.getItem('savedPassword') || sessionStorage.getItem('savedPassword');
+            if(savedUser) {
+                if(document.getElementById('signupModal').classList.contains('hidden')) toggleModal();
+                document.getElementById('regName').value = savedUser;
+                document.getElementById('password').value = savedPass;
+                document.getElementById('modalTitle').innerText = "Portal Login";
+                document.getElementById('submitBtn').innerText = "Log In";
+                document.getElementById('submitBtn').disabled = false; flowStep = 3;
+            } else { toggleModal(); }
+        }
+
+        function renderUserPortal(username) {
+            document.getElementById('authHeaderAction').innerHTML = `
+                <div class="flex items-center space-x-4">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-brand-accent">User: ${username}</span>
+                    <button onclick="location.reload()" class="px-4 py-2 border border-brand-accent text-xs font-bold uppercase hover:bg-brand-accent hover:text-white transition">Exit</button>
+                </div>`;
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-white min-h-screen py-16">
+                    <div class="max-w-7xl mx-auto px-8">
+                        <div class="border-b pb-8 mb-12">
+                            <h1 class="text-4xl font-serif text-slate-900">Member Dashboard</h1>
+                            <p class="text-[10px] text-brand-accent font-bold uppercase tracking-widest mt-2">Welcome back, ${username}</p>
+                        </div>
+                        <div id="jobList" class="grid lg:grid-cols-2 gap-8"></div>
+                    </div>
+                </section>
+            `;
+            renderJobList(adminJobBoard); 
+        }
+
+        function renderJobList(jobs) {
+            const list = document.getElementById('jobList');
+            if(!list) return;
+            list.innerHTML = jobs.map(j => `
+                <div class="border p-8 hover:border-brand-accent transition bg-white cursor-pointer group" onclick="showJobDetails(${j.id})">
+                    <p class="text-[10px] font-bold text-brand-accent uppercase mb-2">${j.cat}</p>
+                    <h4 class="text-2xl font-serif group-hover:text-brand-accent transition">${j.role}</h4>
+                    <p class="text-sm text-slate-500 mt-2">${j.state}, ${j.country}</p>
+                </div>
+            `).join('');
+        }
+
+        function showJobDetails(id) {
+            const job = adminJobBoard.find(j => j.id === id);
+            if(!job) return;
+            const container = document.getElementById('dynamicContent');
+            container.innerHTML = `
+                <section class="bg-slate-50 min-h-screen py-24">
+                    <div class="max-w-3xl mx-auto px-8">
+                        <button onclick="renderUserPortal('${currentUser}')" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">Back to Dashboard</button>
+                        <div class="bg-white border p-12 shadow-lg">
+                            <h1 class="text-5xl font-serif mb-4">${job.role}</h1>
+                            <p class="text-slate-600 mb-8 whitespace-pre-wrap leading-relaxed">${job.desc}</p>
+                            <button onclick="handleApplication('${job.url}')" class="bg-brand-dark text-white px-10 py-4 text-xs font-bold uppercase tracking-widest">Apply Now</button>
+                        </div>
+                    </div>
+                </section>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        function handleApplication(url) {
+            window.open(url, '_blank');
+        }
+
+        function resetForm() {
+            flowStep = 1; document.getElementById('signupForm').reset();
+            const os = document.getElementById('otpSection');
+            if(os) os.classList.add('hidden-field');
+            const sb = document.getElementById('submitBtn');
+            if(sb) sb.disabled = true;
+        }
+    </script>
+</body>
+</html>
