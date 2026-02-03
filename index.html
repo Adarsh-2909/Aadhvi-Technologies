@@ -36,7 +36,6 @@
             background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
         }
 
-        /* Admin UI Utilities */
         .admin-card { display: none; }
         .admin-card.active { display: block; }
     </style>
@@ -88,11 +87,11 @@
         </section>
     </main>
 
-    <div id="signupModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-y-auto py-10">
-        <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-slate-200 my-auto">
+    <div id="signupModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm px-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-md p-8 shadow-2xl border border-slate-200 my-8">
             <div class="flex justify-between items-center mb-6">
                 <h2 id="modalTitle" class="text-2xl font-serif text-slate-900">Create Account</h2>
-                <button onclick="toggleModal()" class="text-slate-400 hover:text-slate-900 text-3xl">&times;</button>
+                <button onclick="toggleModal()" class="text-slate-400 hover:text-slate-900">&times;</button>
             </div>
             <form id="signupForm" class="space-y-4">
                 <div id="mainFields">
@@ -177,30 +176,30 @@
 
         function renderOverview() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Overview</h2><div class="space-y-6 text-slate-600 leading-relaxed text-sm"><p>Aadhvi Technologies serves as a premier talent bridge, curating an ecosystem where professional ambition meets organizational vision.</p><p>We leverage sophisticated matching logic to ensure that every role published is a strategic fit.</p></div></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Overview</h2><div class="space-y-6 text-slate-600 leading-relaxed text-sm"><p>Aadhvi Technologies serves as a premier talent bridge.</p></div></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
             window.scrollTo(0, 0);
         }
 
         function renderImpact() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Our Impact</h2><div class="space-y-6 text-slate-600 leading-relaxed text-sm"><p>Facilitated over 1,200 high-impact placements across North America, Europe, and Asia.</p></div></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Our Impact</h2><p class="text-sm">Redefining professional success.</p></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
             window.scrollTo(0, 0);
         }
 
         function renderCulture() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Culture</h2><div class="space-y-6 text-slate-600 leading-relaxed text-sm"><p>Operate on a "merit-first" philosophy. Intellectual curiosity and collaborative execution.</p></div></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="grid md:grid-cols-2 gap-12 bg-white p-12 shadow-sm border"><div><h2 class="text-4xl font-serif mb-6 text-slate-900 uppercase tracking-tight">Culture</h2><p class="text-sm">Merit-first philosophy.</p></div><div class="flex items-center justify-center"><div class="w-full h-64 bg-slate-200"></div></div></div></div></section>`;
             window.scrollTo(0, 0);
         }
 
         function renderTerms() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="bg-white p-12 border shadow-sm"><h2 class="text-3xl font-serif mb-6 uppercase">Terms of Service</h2><p class="text-xs text-slate-500 uppercase tracking-widest">By accessing this portal, you agree to comply with professional standards.</p></div></div></section>`;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="bg-white p-12 border"><h2 class="text-2xl font-serif mb-4">Terms</h2><p class="text-xs uppercase">Acceptance of terms required.</p></div></div></section>`;
         }
 
         function renderPrivacy() {
             const container = document.getElementById('dynamicContent');
-            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="bg-white p-12 border shadow-sm"><h2 class="text-3xl font-serif mb-6 uppercase">Privacy Policy</h2><p class="text-xs text-slate-500 uppercase tracking-widest">Your professional data is encrypted and protected under global standards.</p></div></div></section>`;
+            container.innerHTML = `<section class="bg-slate-50 min-h-screen py-24"><div class="max-w-5xl mx-auto px-8"><button onclick="location.reload()" class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-8 block">← Back to Home</button><div class="bg-white p-12 border"><h2 class="text-2xl font-serif mb-4">Privacy</h2><p class="text-xs uppercase">Data protected by encryption.</p></div></div></section>`;
         }
 
         function handleAdminAccess() {
@@ -268,8 +267,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
-            `;
+                </section>`;
         }
 
         function switchAdminTab(tabId, btnElement) {
@@ -289,14 +287,12 @@
             adminJobBoard.push({ id: Date.now(), role, desc, url, country: "Global", state: "Remote", cat: "Professional" });
             localStorage.setItem('nexusJobs', JSON.stringify(adminJobBoard));
             renderAdminPortal();
-            switchAdminTab('jobManagement', document.querySelectorAll('.tab-btn')[2]);
         }
 
         function adminDeleteJob(id) {
             adminJobBoard = adminJobBoard.filter(j => j.id !== id);
             localStorage.setItem('nexusJobs', JSON.stringify(adminJobBoard));
             renderAdminPortal();
-            switchAdminTab('jobManagement', document.querySelectorAll('.tab-btn')[2]);
         }
 
         function generateCaptcha() {
@@ -387,12 +383,10 @@
                                         <p class="text-sm text-slate-500 mt-2 max-w-xl">${job.desc}</p>
                                     </div>
                                     <button onclick="applyForJob('${job.role}', this)" class="mt-6 md:mt-0 px-8 py-3 bg-brand-dark text-white text-[10px] font-bold uppercase tracking-widest">Apply Now</button>
-                                </div>
-                            `).join('')}
+                                </div>`).join('')}
                         </div>
                     </div>
-                </section>
-            `;
+                </section>`;
         }
 
         function applyForJob(role, btn) {
