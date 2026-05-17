@@ -445,7 +445,17 @@
             const remember = document.getElementById('rememberMe').checked;
 
             if (flowStep === 1) {
-                if(registeredUsers.find(u => u.name === name)) { manualLoginRedirect(); return; }
+                let existingUser = registeredUsers.find(u => u.name === name);
+                if(existingUser) { 
+                    // Autofill correct details and pivot structure to login view safely
+                    document.getElementById('regName').value = existingUser.name;
+                    document.getElementById('password').value = existingUser.password;
+                    document.getElementById('modalTitle').innerText = "Portal Login";
+                    document.getElementById('submitBtn').innerText = "Enter Dashboard";
+                    document.getElementById('submitBtn').disabled = false;
+                    flowStep = 3;
+                    return; 
+                }
                 document.getElementById('otpSection').classList.remove('hidden-field');
                 generateCaptcha();
                 document.getElementById('submitBtn').innerText = "Register Account";
@@ -470,14 +480,17 @@
         function manualLoginRedirect() {
             const savedUser = localStorage.getItem('savedUserID') || sessionStorage.getItem('savedUserID');
             const savedPass = localStorage.getItem('savedPassword') || sessionStorage.getItem('savedPassword');
+            if(document.getElementById('signupModal').classList.contains('hidden')) {
+                toggleModal();
+            }
             if(savedUser) {
-                if(document.getElementById('signupModal').classList.contains('hidden')) toggleModal();
                 document.getElementById('regName').value = savedUser;
                 document.getElementById('password').value = savedPass;
-                document.getElementById('modalTitle').innerText = "Portal Login";
-                document.getElementById('submitBtn').innerText = "Log In";
-                document.getElementById('submitBtn').disabled = false; flowStep = 3;
-            } else { toggleModal(); }
+            }
+            document.getElementById('modalTitle').innerText = "Portal Login";
+            document.getElementById('submitBtn').innerText = "Enter Dashboard";
+            document.getElementById('submitBtn').disabled = false; 
+            flowStep = 3;
         }
 
         function renderUserPortal(username) {
@@ -541,7 +554,14 @@
             const os = document.getElementById('otpSection');
             if(os) os.classList.add('hidden-field');
             const sb = document.getElementById('submitBtn');
-            if(sb) sb.disabled = true;
+            if(sb) {
+                sb.innerText = "Continue to Registration";
+                sb.disabled = true;
+            }
+            document.getElementById('modalTitle').innerText = "Create Account";
+            document.getElementById('rule-upper').className = 'text-red-500';
+            document.getElementById('rule-num').className = 'text-red-500';
+            document.getElementById('rule-special').className = 'text-red-500';
         }
     </script>
 </body>
